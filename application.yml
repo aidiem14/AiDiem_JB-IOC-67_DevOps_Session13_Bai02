@@ -1,0 +1,32 @@
+server:
+    port: 8086
+spring:
+    application:
+        name: order-service
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: 12345678
+        url: jdbc:postgresql://localhost:5432/order_service_db
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                format_sql: true
+        show-sql: true
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - health
+                    - prometheus
+                exclude:
+                    - env
+                    - shutdown
+    metrics:
+        tags:
+            application: ${spring.application.name}
